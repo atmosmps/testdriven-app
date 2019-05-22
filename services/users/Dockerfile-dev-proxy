@@ -1,0 +1,31 @@
+# Base Image
+FROM python:3.6.5-alpine
+
+# Define Config Proxy ENVs
+ARG proxy
+ARG sproxy
+ARG no_proxy
+
+ENV http_proxy="$proxy"
+ENV https_proxy="$sproxy"
+ENV no_proxy="$no_proxy"
+
+# # Config Proxy For APT
+# RUN touch /etc/apt/apt.conf.d/proxy.conf
+# RUN echo Acquire::http::Proxy "http://4927:luc14n01994@proxy.ceuma.edu.br:3128/"; > /etc/apt/apt.conf.d/proxy.conf
+# RUN echo Acquire::https::Proxy "http://4927:luc14n01994@proxy.ceuma.edu.br:3128/"; >> /etc/apt/apt.conf.d/proxy.conf
+
+RUN pip install --upgrade pip
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Add and install requirements
+COPY ./requirements.txt /usr/src/app/requirements.txt
+RUN pip install -r requirements.txt
+
+# Add app
+COPY . /usr/src/app
+
+# Run server
+CMD python manage.py run -h 0.0.0.0
