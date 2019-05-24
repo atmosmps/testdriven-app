@@ -19,4 +19,4 @@ class Userping(Resource):
         }
 
 
-api.add_resource(Userping, '/users/ping')
+api.add_resource(Userping, '/users/ping/')
