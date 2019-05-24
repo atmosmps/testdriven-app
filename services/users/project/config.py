@@ -7,17 +7,20 @@ class BaseConfig:
     """
     TESTING = False
 
+
 class DevelopmentConfig(BaseConfig):
     """
     Development Configuration
     """
     pass
 
+
 class TestingConfig(BaseConfig):
     """
     Testing Configuration
     """
     TESTING = True
+
 
 class ProductionConfig(BaseConfig):
     """
