@@ -1,23 +1,22 @@
 # services/users/project/__init__.py
 
-import os, sys
-from flask import Flask, jsonify
+import os
+from flask import Flask
+from flask_restful import Resource, Api
 
-
-# New Instance for Flask
 app = Flask(__name__)
+api = Api(app)
 
-# Para teste
-print(app.config, file=sys.stderr)
-
-# Set Config
 app_settings = os.getenv('APP_SETTINGS')
 app.config.from_object(app_settings)
 
 
-@app.route('/users/ping', methods=['GET'])
-def ping_pong():
-    return jsonify({
-        'status': 'success',
-        'message': 'Pong com Docker!'
-    })
+class Userping(Resource):
+    def get(self):
+        return {
+            'status': 'success',
+            'message': 'pong!'
+        }
+
+
+api.add_resource(Userping, '/users/ping')
