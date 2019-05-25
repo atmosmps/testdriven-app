@@ -37,5 +37,6 @@ Once the app is up and running locally, it will be deploy it to an Amazon EC2 in
 - Container Orchestration
 - Serverless Architecture
 
-## LINCESE
+## LICENSE
 
+[Apache License 2.0](LICENSE)
