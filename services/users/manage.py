@@ -3,13 +3,13 @@
 import sys
 import unittest
 from flask.cli import FlaskGroup
-from project import app, db
+from project import create_app, db
+
+app = create_app()
+cli = FlaskGroup(create_app=create_app)
 
 
-cli = FlaskGroup(app)
-
-
-@cli.command('recreate.db')
+@cli.command('recreate_db')
 def recreate_db():
     db.drop_all()
     db.create_all()
