@@ -25,13 +25,26 @@ class TestUserService(BaseTestCase):
                     'username': 'atmos',
                     'email': 'atmos@email.com'
                 }),
-                content_type='application/json'
+                content_type='application/json',
             )
 
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 201)
             self.assertIn('atmos@email.com was added!', data['message'])
             self.assertIn('success', data['status'])
+
+    def test_add_user_invalid_json(self):
+        with self.client:
+            response = self.client.post(
+                '/users',
+                data=json.dumps({}),
+                content_type='application/json',
+            )
+
+            data = json.loads(response.data.decode())
+            self.assertEqual(response.status_code, 400)
+            self.assertIn('Invalid Payload.', data['message'])
+            self.assertIn('Fail', data['status'])
 
 
 if __name__ == '__main__':
