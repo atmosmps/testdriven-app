@@ -61,7 +61,7 @@ class TestUserService(BaseTestCase):
 
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 400)
-            self.assertIn('Invalid Paylod', data['message'])
+            self.assertEqual('Invalid Payload.', data['message'])
             self.assertIn('Fail', data['status'])
 
     def test_add_user_duplicate_email(self):
